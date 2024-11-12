@@ -24,7 +24,7 @@ public class SignInMethod {
 		
 		signInPage logPage = new signInPage(driver);
 		
-		logPage.getEmail().sendKeys("franartigaf15@gmail.com");
+		logPage.getEmailAddress().sendKeys("franartigaf15@gmail.com");
 		logPage.getPassword().sendKeys("PassWord");
 		logPage.getSignInButton().click();
 		
