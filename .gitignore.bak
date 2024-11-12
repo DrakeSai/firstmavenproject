@@ -23,6 +23,5 @@
 hs_err_pid*
 replay_pid*
 /target/
-test-output/
-
-test-output/index.html
+/test-output
+/test-output/Suite

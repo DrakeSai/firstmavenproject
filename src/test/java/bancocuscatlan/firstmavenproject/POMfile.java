@@ -56,7 +56,7 @@ public class POMfile {
 		WebElement tituloTestStore = driver
 				.findElement(By.cssSelector("#content section:nth-child(2) .products-section-title"));
 
-		softassert.assertEquals(tituloTestStore.getText(), "POPULAR PRODUCTS 2",
+		softassert.assertEquals(tituloTestStore.getText(), "POPULAR PRODUCTS",
 				"El titulo de la pagina es incorrecto");
 
 		driver.findElement(By.cssSelector("div#_desktop_user_info")).click();
