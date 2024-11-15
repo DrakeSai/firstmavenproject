@@ -1,7 +1,11 @@
 package bancocuscatlan.firstmavenproject;
 
+import java.io.IOException;
 import java.time.Duration;
 import org.testng.asserts.SoftAssert;
+
+import base.BasePage;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,19 +17,41 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class POMfile {
+public class POMfile extends BasePage{
 
-	WebDriver driver;
+	
+	public POMfile() throws IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	SoftAssert softassert;
+	
+	@Test
+	public void ejemploSoftAssertion() throws IOException, InterruptedException {
+		driver = getDriver();
+		driver.get(getUrl());
+		
+		softassert = new SoftAssert();
+		WebElement tituloTestStore = driver
+				.findElement(By.cssSelector("#content section:nth-child(2) .products-section-title"));
 
-	@BeforeMethod
-	public void getToWebsite() {
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\FA21617\\Desktop\\Clases Automation testing\\Dependencias\\chromedriver-win64\\chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("https://teststore.automationtesting.co.uk/index.php");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		softassert.assertEquals(tituloTestStore.getText(), "POPULAR PRODUCTS",
+				"El titulo de la pagina es incorrecto");
+
+		driver.findElement(By.cssSelector("div#_desktop_user_info")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("input#field-email")));
+
+		WebElement campoCorreo = driver.findElement(By.cssSelector("input#field-email"));
+		Assert.assertTrue(campoCorreo.getText().isEmpty());
+		
+		Thread.sleep(3000);
+
+		softassert.assertAll();
+		
+		driver.close();
+		driver.quit();
 	}
 
 	public void testNgAssertion() {
@@ -50,26 +76,9 @@ public class POMfile {
 		Assert.assertTrue(campoCorreo.getText().isEmpty());
 	}
 
-	@Test
-	public void ejemploSoftAssertion() {
-		softassert = new SoftAssert();
-		WebElement tituloTestStore = driver
-				.findElement(By.cssSelector("#content section:nth-child(2) .products-section-title"));
 
-		softassert.assertEquals(tituloTestStore.getText(), "POPULAR PRODUCTS",
-				"El titulo de la pagina es incorrecto");
 
-		driver.findElement(By.cssSelector("div#_desktop_user_info")).click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("input#field-email")));
-
-		WebElement campoCorreo = driver.findElement(By.cssSelector("input#field-email"));
-		Assert.assertTrue(campoCorreo.getText().isEmpty());
-
-		softassert.assertAll();
-	}
-
-	@AfterMethod
+	
 	public void finalizarPrueba() {
 		driver.close();
 		driver.quit();
